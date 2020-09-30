@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class QuestionnaireAnswer extends Model
 {
     /**
+     * @var string[]
+     */
+    protected $with = ['answersOnQuestions'];
+
+    /**
      * @var array
      */
     protected $fillable = [
@@ -16,7 +21,7 @@ class QuestionnaireAnswer extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function questionsWithAnswers()
+    public function answersOnQuestions()
     {
         return $this->hasMany(QuestionnaireQuestionAnswers::class);
     }

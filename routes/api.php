@@ -14,5 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth.api')->group(function () {
-
+    Route::apiResource('questionnaires', 'QuestionnaireController')->except(['update', 'destroy']);
 });

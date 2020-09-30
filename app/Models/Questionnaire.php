@@ -2,10 +2,18 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Slugable;
 use Illuminate\Database\Eloquent\Model;
 
 class Questionnaire extends Model
 {
+    use Slugable;
+
+    /**
+     * @var string[]
+     */
+    protected $with = ['questions'];
+
     /**
      * @var string[]
      */
@@ -13,6 +21,14 @@ class Questionnaire extends Model
         'name',
         'slug',
     ];
+
+    /**
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
     // RELATIONS
 
