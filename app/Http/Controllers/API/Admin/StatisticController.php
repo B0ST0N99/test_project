@@ -10,6 +10,20 @@ use Illuminate\Http\JsonResponse;
 class StatisticController extends Controller
 {
     /**
+     * @OA\Get(
+     *     path="/admin/statistics/pie-chart",
+     *     operationId="adminPieChart",
+     *     tags={"Admins"},
+     *     security={{"X-APP-KEY": {}}},
+     *     summary="Return data for Pie Chart.",
+     *     @OA\Response(
+     *         response="200",
+     *         description="Everything is fine"
+     *     ),
+     * )
+     *
+     * Return data for Pie Chart.
+     *
      * @return JsonResponse
      */
     public function pieChart()
@@ -29,6 +43,20 @@ class StatisticController extends Controller
     }
 
     /**
+     * @OA\Get(
+     *     path="/admin/statistics/bar-chart",
+     *     operationId="adminBarChart",
+     *     tags={"Admins"},
+     *     security={{"X-APP-KEY": {}}},
+     *     summary="Return data for Bar Chart.",
+     *     @OA\Response(
+     *         response="200",
+     *         description="Everything is fine"
+     *     ),
+     * )
+     *
+     * Return data for Bar Chart.
+     *
      * @return JsonResponse
      */
     public function barChart()

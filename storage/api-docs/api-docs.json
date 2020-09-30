@@ -1,0 +1,337 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Laravel Swagger API documentation",
+        "contact": {
+            "email": "admin@example.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://test-project.loc/api",
+            "description": "Laravel Swagger API server"
+        }
+    ],
+    "paths": {
+        "/admin/questionnaires": {
+            "get": {
+                "tags": [
+                    "Admins"
+                ],
+                "summary": "Display a listing of the resource",
+                "operationId": "adminQuestionnaireAll",
+                "responses": {
+                    "200": {
+                        "description": "Everything is fine"
+                    }
+                },
+                "security": [
+                    {
+                        "X-APP-KEY": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Admins"
+                ],
+                "summary": "Create questionnaire with question",
+                "operationId": "adminQuestionnairesCreate",
+                "requestBody": {
+                    "description": "Create questionnaire with question",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/QuestionnaireStoreRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Everything is fine"
+                    },
+                    "422": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseInvalid"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "X-APP-KEY": []
+                    }
+                ]
+            }
+        },
+        "/admin/questionnaires/{slug}": {
+            "get": {
+                "tags": [
+                    "Admins"
+                ],
+                "summary": "Display the specified resource",
+                "operationId": "adminQuestionnaireShow",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Questionnaire slug",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Everything is fine"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "X-APP-KEY": []
+                    }
+                ]
+            }
+        },
+        "/admin/statistics/pie-chart": {
+            "get": {
+                "tags": [
+                    "Admins"
+                ],
+                "summary": "Return data for Pie Chart.",
+                "operationId": "adminPieChart",
+                "responses": {
+                    "200": {
+                        "description": "Everything is fine"
+                    }
+                },
+                "security": [
+                    {
+                        "X-APP-KEY": []
+                    }
+                ]
+            }
+        },
+        "/admin/statistics/bar-chart": {
+            "get": {
+                "tags": [
+                    "Admins"
+                ],
+                "summary": "Return data for Bar Chart.",
+                "operationId": "adminBarChart",
+                "responses": {
+                    "200": {
+                        "description": "Everything is fine"
+                    }
+                },
+                "security": [
+                    {
+                        "X-APP-KEY": []
+                    }
+                ]
+            }
+        },
+        "/questionnaire-answers": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Store answer on questions of questionnaire",
+                "operationId": "questionnaireStoreAnswers",
+                "requestBody": {
+                    "description": "Store answer on questions of questionnaire",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/QuestionnaireAnswerStoreRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Everything is fine"
+                    },
+                    "422": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseInvalid"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/questionnaires/{slug}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Display the specified resource",
+                "operationId": "questionnaireShow",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Questionnaire slug",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Everything is fine"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "QuestionnaireStoreRequest": {
+                "required": [
+                    "name",
+                    "questions",
+                    "questions.*.name"
+                ],
+                "type": "object",
+                "allOf": [
+                    {
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "example": "Questionnaire name"
+                            },
+                            "questions": {
+                                "type": "array",
+                                "items": {
+                                    "required": [
+                                        "name"
+                                    ],
+                                    "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Question name"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "ResponseInvalid": {
+                "type": "object",
+                "allOf": [
+                    {
+                        "properties": {
+                            "message": {
+                                "type": "string",
+                                "example": "invalid_request"
+                            },
+                            "errors": {
+                                "type": "string",
+                                "example": "[ ... ]"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "QuestionnaireAnswerStoreRequest": {
+                "required": [
+                    "name",
+                    "questions",
+                    "questions.*.name"
+                ],
+                "type": "object",
+                "allOf": [
+                    {
+                        "properties": {
+                            "questionnaire_id": {
+                                "type": "integer",
+                                "example": "1"
+                            },
+                            "questions": {
+                                "type": "array",
+                                "items": {
+                                    "required": [
+                                        "question_id",
+                                        "answer"
+                                    ],
+                                    "properties": {
+                                        "question_id": {
+                                            "type": "integer",
+                                            "example": "1"
+                                        },
+                                        "answer": {
+                                            "type": "string",
+                                            "example": "Answer"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            }
+        },
+        "securitySchemes": {
+            "X-APP-KEY": {
+                "type": "apiKey",
+                "name": "X-APP-KEY",
+                "in": "header"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Admins",
+            "description": "Routes for admin"
+        },
+        {
+            "name": "Users",
+            "description": "Routes for user"
+        }
+    ],
+    "security": [
+        []
+    ]
+}
