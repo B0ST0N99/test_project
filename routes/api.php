@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth.api')->group(function () {
-    Route::apiResource('questionnaires', 'QuestionnaireController')->except(['update', 'destroy']);
+Route::group(['namespace' => 'Admin', 'middleware' => ['auth.api']], function () {
+    Route::apiResource('admin/questionnaires', 'QuestionnaireController')->except(['update', 'destroy']);
 });
+
+Route::group(['namespace' => 'User'], function () {
+    Route::apiResource('questionnaires', 'QuestionnaireController')->only(['show']);
+
+    Route::apiResource('questionnaire-answers', 'QuestionnaireAnswerController')->only(['store']);
+});
+

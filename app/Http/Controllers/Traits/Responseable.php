@@ -10,15 +10,18 @@ trait Responseable
 {
     /**
      * @param $message
+     * @param mixed $key
      * @param int $status
      * @return JsonResponse
      */
-    public function invalidate($message, $status = 422)
+    public function invalidate($message, $key = null, $status = 422)
     {
         $data = [
             'success' => false,
             'message' => $message,
         ];
+
+        if ($key) $data['errors'][$key][] = $message;
 
         return response()->json($data, $status);
     }
@@ -48,6 +51,6 @@ trait Responseable
      */
     public function created($data)
     {
-        return $this->success('',  $data, JsonResponse::HTTP_CREATED);
+        return $this->success('', $data, JsonResponse::HTTP_CREATED);
     }
 }

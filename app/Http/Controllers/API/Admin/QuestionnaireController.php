@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\Admin;
 
+use App\Http\Controllers\API\Controller;
 use App\Http\Requests\Questionnaire\QuestionnaireStoreRequest;
 use App\Models\Questionnaire;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class QuestionnaireController extends Controller
 {
@@ -16,7 +16,7 @@ class QuestionnaireController extends Controller
      */
     public function index()
     {
-        $data = Questionnaire::with('questions')->get();
+        $data = Questionnaire::with('questions')->paginate(10);
 
         return $this->success('', $data);
     }

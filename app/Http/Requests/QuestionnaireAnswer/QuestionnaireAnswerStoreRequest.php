@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Questionnaire;
+namespace App\Http\Requests\QuestionnaireAnswer;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class QuestionnaireStoreRequest extends FormRequest
+class QuestionnaireAnswerStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,10 @@ class QuestionnaireStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'             => 'required|max:255',
-            'questions'        => 'required|array|min:1',
-            'questions.*.name' => 'required|string|max:500'
+            'questionnaire_id'        => 'required|integer|exists:questionnaires,id',
+            'questions'               => 'required|array',
+            'questions.*.question_id' => 'required|integer|exists:questions,id',
+            'questions.*.answer'      => 'required|string|max:500'
         ];
     }
 }
