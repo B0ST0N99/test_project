@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Traits\Slugable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Questionnaire extends Model
 {
@@ -28,6 +29,17 @@ class Questionnaire extends Model
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+    // SCOPES
+
+    public function scopeBarChart(Builder $query)
+    {
+        $query->noEagerLoads()->withCount('questionnaireAnswers');
+    }
+
+    public function scopeNoEagerLoads($query){
+        return $query->setEagerLoads([]);
     }
 
     // RELATIONS

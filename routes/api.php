@@ -13,9 +13,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['namespace' => 'Admin', 'middleware' => ['auth.api']], function () {
-    Route::apiResource('admin/questionnaires', 'QuestionnaireController')->except(['update', 'destroy']);
-});
+Route::group(
+    [
+        'namespace'  => 'Admin',
+        'middleware' => ['auth.api'],
+        'prefix'     => 'admin',
+        'as'         => 'admin.'
+    ],
+    function () {
+        Route::apiResource('questionnaires', 'QuestionnaireController')->except(['update', 'destroy']);
+
+        Route::get('statistics/pie-chart', 'StatisticController@pieChart')->name('statistics.pie_chart');
+        Route::get('statistics/bar-chart', 'StatisticController@barChart')->name('statistics.bar_chart');
+    }
+);
 
 Route::group(['namespace' => 'User'], function () {
     Route::apiResource('questionnaires', 'QuestionnaireController')->only(['show']);
