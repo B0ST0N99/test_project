@@ -26,3 +26,8 @@
     ```
     $ php artisan migrate --seed
     ```
+    
+1. Api documantation uri
+    ```
+    /api/documentation
+    ```
